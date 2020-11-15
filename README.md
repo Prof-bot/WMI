@@ -1,8 +1,9 @@
 # WMI
-
 ===================================================
+
 WMI Respawn Framework - v1
-- by Prof
+ by Prof
+
 ===================================================
 
 ----- HOW TO SET UP -----
@@ -51,4 +52,4 @@ strafing manuvours to clear landing sites, rocket strikes on potential danger ta
 But honestly that sounds like work. And we probably don't need that functionality anyway.
 - Could utilise an array of getVariables to create a whole fleet of respawn vehicles. Each vehicle object can have a 'inTransit' variable, that shows when they are assigned to a reinsert.
 Any thrown objects can then give orders to a non-transit vehicle, meaning mutliple squads can get respawns at the same time.
-===========================================================================================================================================================
+
