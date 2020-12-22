@@ -8,13 +8,11 @@
  * that functions as the respawn vehicle. That vehicle will then head to the marked location, wait for a time, then return.
  * NOTE - Only tested with choppers to-date. The goal is to make this vehicle agnostic, so it can be attached to anything.
  */
-
 //========================== Init ===============================
-respawnObject = "chemlight_yellow"; //What object is being watched for
+respawnObject = "chemlight_red"; //What object is being watched for
 sideOfPlayer = WEST; //Player Side
-spawnVehicle = missionNamespace getVariable ["_respawnVehicle", objNull]; //The variable name of the respawn vehicle
 showMapMarker = true; //True will show a marker for respawn. False will show no marker.
-debug = true; //true outputs debug info. false gives no debug hints.
+debug = false; //true outputs debug info. false gives no debug hints.
 //========================== CodeStuff ===============================
 
 if (isNull spawnVehicle) exitWith{
@@ -32,9 +30,12 @@ if (isNull spawnVehicle) exitWith{
 		  //Add "Fired" Event handler
 			 player addEventHandler ["Fired",
 			{
+			
 			//If they throw specified object
 				if ((_this select 4) == respawnObject) then
 				{
+				//Store the respawn type
+
 				//Wait till object is spawned
 					(_this select 6) spawn
 					{
@@ -42,13 +43,20 @@ if (isNull spawnVehicle) exitWith{
 						sleep 0.1;
 						waitUntil {(speed _this <= 0) || (!alive _this)};
 						//========================================
-						//Respawn Logic
+						//Calculate Delay
 						//========================================
-						
-						//We need to initialise the marker, even if we don't use it so it's accessible to the below logic
-						_respawnMarker = createMarker ["RespawnMarker", (position _this)];
+
 
 						
+						
+						//========================================
+						//Respawn Logic
+						//========================================
+						//We need to initialise the marker, even if we don't use it so it's accessible to the below logic
+						_respawnMarker = createMarker ["RespawnMarker", (position _this)];
+						landingLocation = (getPos _this);
+						publicVariable "landingLocation";
+
 						//Create Marker Logic --------------------
 						if (showMapMarker) then
 						{
@@ -62,37 +70,7 @@ if (isNull spawnVehicle) exitWith{
 						};
 						//----------------------------------------
 						
-						//Vehicle Logic --------------------------
-						//Store the current vehicle position
-						vehicleHome = (getPos spawnVehicle);
-						//move to thrown object location
-						spawnVehicle move (getPos _this);
-						//allow command to be processed
-						sleep 3;
-						//while the spawn vehicle is still alive, and completed it's move command, we wait
-						while { ( (alive spawnVehicle) && !(unitReady spawnVehicle) ) } do
-						{
-							   sleep 1;
-						};
-						//if the vehicle is still alive and ready, land
-						if (alive spawnVehicle) then
-						{
-							   spawnVehicle land "LAND";
-						};
-						//now wait a bit so everyone gets out
-						sleep 20;
-						//follow same procedure as above to return to previous location
-						spawnVehicle move vehicleHome;
-						sleep 3;
-						while { ( (alive spawnVehicle) && !(unitReady spawnVehicle) ) } do
-						{
-							   sleep 1;
-						};
-						if (alive spawnVehicle) then
-						{
-							   spawnVehicle land "LAND";
-						};
-						//----------------------------------------
+						[[[getPos _this], "core\moveChopper.sqf"], "BIS_fnc_execVM", true] call BIS_fnc_MP;
 						
 						//Delete Marker Logic --------------------
 						if (showMapMarker) then

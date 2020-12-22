@@ -5,6 +5,6 @@
 //-------------------------------------------------------------
 
 //======= Mission Intro Text =========
-["01:00PM", str(date select 2) + "/" + str(date select 1) + "/" + str(date select 0)] call BIS_fnc_infoText;
-["Respawn Testing"] call BIS_fnc_infoText;                                                                       
-["Begin Test..."] call BIS_fnc_infoText;
+["01:17PM", str(date select 2) + "/" + str(date select 1) + "/" + str(date select 0)] call BIS_fnc_infoText;
+["First Text Line"] call BIS_fnc_infoText;                                                                       
+["Second Text Line"] call BIS_fnc_infoText;

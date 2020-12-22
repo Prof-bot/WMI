@@ -1,4 +1,0 @@
-There will  be bugs. There will be issues. Any we find, stick into the list below. If they aren't in the list, they won't be worked on:
--------------------------
-* Ground vehicles will have a difficult time following the advanced "LAND" command, so in modded terrains they might have some issues, might not - hasn't been tested.
-*

@@ -9,4 +9,3 @@
 // Start Player Join Calls
 //-------------------------------------------------------------
 nul = [] execVM "core\respawn.sqf";
-nul = [] execVM "intro.sqf";
