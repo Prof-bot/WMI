@@ -1,5 +1,5 @@
 author="Prof";
-onLoadName = "Operation: Something or other";
+onLoadName = "Operation: Something";
 OnLoadMission = "Description here";
 //overviewPicture = "start.jpg"; //Uncomment this and drop an image in called 'start.jpg' to create a mission image
 

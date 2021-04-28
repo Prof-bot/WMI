@@ -1,29 +1,32 @@
 ===================================================
-
-WMI Respawn Framework - v1.2
+WMI Respawn Framework - v2.0
 - by Prof
-
 ===================================================
 
 ----- HOW TO SET UP ----- 
 -------------------------
 (Do this properly otherwise it won't work, and I take no responsibility)
 
-* Place down your respawn vehicle
+-TRANSPORT CHOPPER-
+
+To set up the transport chopper...
+
+* Place down your desired helicopter
+* If the crew consists of just a pilot and co-pilot, change their group to be careless (this stops them flying away when getting shot at)
+* If the crew consists of a Pilot/Co-Pilot and gunners, take all the AI out of the chopper, and put them into 2 groups - one for the pilot/co-pilot and one for the gunners
+* Make the pilot/co-pilot group careless, and leave the gunners as is - put them back into the chopper in the regular seats, and now the gunners will attack as the chopper flies in.
 * Paste the below code into the vehicle init:
 
-	missionNamespace setVariable ["_respawnVehicle", this];
+	missionNamespace setVariable ["__transport", this];
 
-* Make sure the vehicle is crewed. Give the mission a quick try with the framework attached, you'll get a message pop-up if the respawn hasn't been correctly set up.
-* If no error messages appear, you should be good.
+You're all good to go!
 
 
 ----- CUSTOMISING THE SCRIPT -----
 ----------------------------------
 
-* Look inside the \core\ file to find the scripts.
-* respawn.sqf has an init section at the top that you can use to customise a few variables.
-	* These are things like "which object you throw to initiate respawn" and debug etc.
+I've removed some of the customisation options for now, but will re-add them in a future release.
+If there's any specific customisation you'd like to see, let me know.
 
 
 ----- INIT DESCRIPTIONS -----
@@ -49,16 +52,11 @@ Then you're all good to go.
 Future developments:
 --------------------
 - Planning on making this a little more compatible with land vehicles and allowing them to use the same smart routing system I'm using with the aerial vehicles (I.E, using appropriate waypoints)
-  - this just involves investigating the vehicle object to determine if there's an attached vehicle type
+	- This just involves investigating the vehicle object to determine if there's an attached vehicle type
 or if I can compile a list of vehicle template names and determine if there's a leading identifier for choppers, and when this is detected, bypassing the "LAND" orders
 - Utilising the side detection, we could probably mesh this to work with multiple sides, allowing usage of automated reinsert vehicles for PVP, or multi-side operations
 This mainly looks like it's going to be something like "create a function for detecting spawnVehicle that's called after player side-specification. Once side is stored,
 perform a getVariable and store all results in an array. Check array for side-matching vehicle, perform movement logic on this sides vehicle"
-- Some tweaking may be needed on the timing for pickup/dropoff. A check for "All players out" could also be performed to confirm all players have successfully exited the vehicle.
-- A combat landing can be initiated by altering the crews combat behaviour to ignore potential incoming fire during the land order, which will allow inserts under-fire.
-- A combat-inclusive landing can be achieved by altering pre-set landing behaviours upon detection of incoming fire. This could mean we can get reinsert vehicles doing
-strafing manuvours to clear landing sites, rocket strikes on potential danger targets if they are called in etc. This could actually be utilised to create a in-depth fire-support script.
-But honestly that sounds like work. And we probably don't need that functionality anyway.
 ===========================================================================================================================================================
 
 ----- I found a bug, what do I do? -----
@@ -73,4 +71,4 @@ Please include:
   - How do you replicate the issue?
   - Server type (singleplayer, local, dedicated etc.)
 
-If you don't, I'll pretend like I've never seen it before.
+If you don't, I'll likely forget and it won't get fixed.
