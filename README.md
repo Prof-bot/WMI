@@ -19,7 +19,7 @@ To set up the transport chopper...
 * Make the pilot/co-pilot group careless, and leave the gunners as is - put them back into the chopper in the regular seats, and now the gunners will attack as the chopper flies in.
 * Paste the below code into the vehicle init:
 
-	missionNamespace setVariable ["__transport", this];
+	missionNamespace setVariable ["_transport", this];
 
 You're all good to go!
 
