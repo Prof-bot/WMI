@@ -1,0 +1,154 @@
+#include "\A3\ui_f\hpp\defineCommonGrids.inc"
+#include "\A3\ui_f\hpp\defineCommonColors.inc"
+#include "UI\BaseControls.hpp"
+#include "UI\RscHeliTaxi.hpp"
+
+//------------ The above stuff is needed for the taxi  ^ ------------
+//------------ The below stuff should be pretty normal v ------------
+
+author="Prof";
+onLoadName = "Taxi Demo";
+OnLoadMission = "See there's this taxi thing";
+//overviewPicture = "images\loadingImage\LoadImage.jpg";
+//loadscreen = "images\loadingImage\LoadImage.jpg";
+
+respawn = 2;
+respawnDelay = 5;
+respawnVehicleDelay = 30;
+respawnTemplatesWest[] = {"MenuPosition"};
+respawnTemplatesEast[] = {"MenuPosition"};
+respawnTemplatesGuer[] = {"MenuPosition"};
+
+respawnOnStart = -1;
+disabledAI = 1;
+joinUnassigned = 1;
+enableDebugConsole[] = {"76561197993721675"};
+aiKills = 1;
+
+class CfgDebriefingSections {
+	class acex_killTracker {
+		title = "ACEX Killed Events";
+		variable = "acex_killTracker_outputText";
+	};
+};
+
+class Params {
+	class EnableAceSpectate{
+		title = "Spectate";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 1;
+	};
+
+	class EnableFreeCam{
+		title = "Free Cam Spectate";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 0;
+	};
+
+	class EnableThermalCam{
+		title = "Thermal Spectate";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 0;
+	};
+
+	class EnableWaveRespawn{
+		title = "WaveBasedRespawn (Requires Spectate)";
+		texts[] = {"False", "60 seconds", "90 Seconds", "120 Seconds", "150 Seconds", "180 Seconds"};
+		values[] = {0, 60, 90, 120, 150, 180};
+		default = 60;
+	};
+
+	class EnableWMIActions{
+		title = "WMI Actions";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 1;
+	};
+
+	class EnableAIResupply{
+		title = "AI Resupply Call";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 0;
+	};
+
+	class AIResupplyCooldown{
+		title = "AI Resupply Cooldown";
+		texts[] = {"90 Seconds", "5 Minutes", "10 Minutes", "20 Minutes", "30 Minutes"};
+		values[] = {90, 300, 600, 1200, 1800};
+		default = 300;
+	};
+
+	class DeleteResupplyCrate{
+		title = "Delete Resupply Crate On Start";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 0;
+	};
+
+	class EnableFOBs{
+		title = "FOBs";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 1;
+	};
+
+	class AllowRespawnAtFobs{
+		title = "Respawn At FOBs";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 1;
+	};
+
+	class HighlanderFobs{
+		title = "Highlander FOBs";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 1;
+	};
+
+	class FobCooldown{
+		title = "FOB Cooldown";
+		texts[] = {"1 second", "90 Seconds", "5 Minutes", "10 Minutes", "20 Minutes", "30 Minutes"};
+		values[] = {1, 90, 300, 600, 1200, 1800};
+		default = 1;
+	};	
+
+	class FobLimit{
+		title = "FOB Limit";
+		texts[] = {"1 FOB","5 FOBs", "10 FOBs", "20 FOBs", "30 FOBs", "1000 FOBs"};
+		values[] = {1, 5, 10, 20, 30, 100};
+		default = 20;
+	};	
+
+	class EnableSquadMarkers{
+		title = "Squad Markers";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 1;
+	};	
+
+	class SMupdateFreq{
+		title = "Squad Marker Frequency";
+		texts[] = {"1 Second", "5 Seconds", "30 Seconds", "1 Minute", "5 Minutes"};
+		values[] = {1, 5, 30, 60, 300};
+		default = 60;
+	}
+
+	class CrateGenVar{
+		title = "Spawnable Crates";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 0;
+	};	
+
+	class CrateGenLimit{
+		title = "Spawnable Crate Limit";
+		texts[] = {"1 Crate","5 Crate", "10 Crate", "20 Crate", "30 Crate", "1000 Crate"};
+		values[] = {1, 5, 10, 20, 30, 100};
+		default = 5;
+	};
+};
