@@ -1,6 +1,6 @@
 =============================
 
-WMI Respawn Framework - v2.0
+WMI Respawn Framework - v3.0
 - by Prof
 
 ==============================
@@ -19,9 +19,17 @@ To set up the transport chopper...
 * Make the pilot/co-pilot group careless, and leave the gunners as is - put them back into the chopper in the regular seats, and now the gunners will attack as the chopper flies in.
 * Paste the below code into the vehicle init:
 
-	missionNamespace setVariable ["_transport", this];
+	missionNamespace setVariable ["__transport", this];
 
 You're all good to go!
+Just press 'z' when you're in the transport, and the UI will open.
+From there, click on the map and click 'OK' to issue a taxi drop-off order.
+Click the 'Command Type' (yellow) button to change the type of command you're issuing from a Land Order, to a Loiter Order.
+A loiter command will tell the chopper to circle the area you select.
+
+Press 'Cancel' or 'Esc' to close the UI.
+
+Check the included Demo Mission for examples on how to set it up, and in-depth explanations on how to deal with different types of helicopters - as well as some hints/tips/explanations on how things work.
 
 
 ----- CUSTOMISING THE SCRIPT -----
