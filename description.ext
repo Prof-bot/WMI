@@ -1,119 +1,154 @@
+#include "\A3\ui_f\hpp\defineCommonGrids.inc"
+#include "\A3\ui_f\hpp\defineCommonColors.inc"
+#include "UI\BaseControls.hpp"
+#include "UI\RscHeliTaxi.hpp"
+
+//------------ The above stuff is needed for the taxi  ^ ------------
+//------------ The below stuff should be pretty normal v ------------
+
 author="Prof";
-onLoadName = "Operation: Something";
-OnLoadMission = "Description here";
-//overviewPicture = "start.jpg"; //Uncomment this and drop an image in called 'start.jpg' to create a mission image
+onLoadName = "Taxi Demo";
+OnLoadMission = "See there's this taxi thing";
+//overviewPicture = "images\loadingImage\LoadImage.jpg";
+//loadscreen = "images\loadingImage\LoadImage.jpg";
 
 respawn = 2;
-respawnDelay = 15;
+respawnDelay = 5;
 respawnVehicleDelay = 30;
 respawnTemplatesWest[] = {"MenuPosition"};
 respawnTemplatesEast[] = {"MenuPosition"};
 respawnTemplatesGuer[] = {"MenuPosition"};
 
-respawnOnStart = 0;
+respawnOnStart = -1;
 disabledAI = 1;
-disableChannels[] = {
-    {0, true, true}, //--- Global Chat
-    {1, true, true}, //--- Side Chat
-    {2, true, true}, //--- Command Chat
-
-};
 joinUnassigned = 1;
+enableDebugConsole[] = {"76561197993721675"};
 aiKills = 1;
 
-class Params {
-	class ViewDistance
-	{
-		title = "View distance (in metres)";
-		values[] = {500,1000,2000,5000};
-		// When 'texts' are missing, values will be displayed directly instead
-		default = 2000;
-	};             
-	class ace_cookoff_ammoCookoffDuration {
-		title = "Cookoff Duration";
-		ACE_setting = 1;
-		Values[] = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1};
-		Default = 0.2;
+class CfgDebriefingSections {
+	class acex_killTracker {
+		title = "ACEX Killed Events";
+		variable = "acex_killTracker_outputText";
 	};
-	class ace_map_gestures_enabled {
-		title = "Map Gestures";
-		ACE_setting = 1;
-		Values[] = {0, 1};
-		texts[] = {"Fasle", "True"};
+};
+
+class Params {
+	class EnableAceSpectate{
+		title = "Spectate";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
 		default = 1;
 	};
-	class ace_medical_medicSetting_basicEpi {
-		Title = "Epi Setting";
-		ACE_setting = 1;
-		Values[] = {0, 1};
-		texts[] = {"Anyone", "Medics"};
-		Default = 0;
-	};
-	class ACE_respawn_savePreDeathGear {
-		Title = "Save PreDeath Gear";
-		ACE_setting = 1;
-		Values[] = {0, 1};
-		texts[] = {"No", "Yes"};
-		Default = 1;
-	};
-	class ACE_advanced_fatigue_enabled {
-		Title = "Fatigue";
-		ACE_setting = 1;
-		Values[] = {0, 1};
-		texts[] = {"Disabled", "enabled"};
-		Default = 0;
-	};
-	
-class ace_medical_enableRevive {
-    
-		Title = "Revive";
-		ACE_setting = 1;
-		values[] = {0, 1};
 
-		Texts[] = {"Disabled", "Enabled"};
-		Default = 1;
+	class EnableFreeCam{
+		title = "Free Cam Spectate";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 0;
 	};
 
-	class ace_medical_maxReviveTime {
-    
-		Title = "ReviveTime";
-		ACE_setting = 1;
-		values[] = {30, 60, 90, 120};
-    
-		Texts[] = {"30", "60", "90", "120"};
-		Default = 90;
-
+	class EnableThermalCam{
+		title = "Thermal Spectate";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 0;
 	};
 
-	class ace_medical_amountOfReviveLives {
-
-		Title = "Amount Of Revive Lives";
-		ACE_setting = 1;
-		values[] = {-1, 0, 1, 2, 3, 4, 5};
-
-		Default = 2;
-
+	class EnableWaveRespawn{
+		title = "WaveBasedRespawn (Requires Spectate)";
+		texts[] = {"False", "60 seconds", "90 Seconds", "120 Seconds", "150 Seconds", "180 Seconds"};
+		values[] = {0, 60, 90, 120, 150, 180};
+		default = 60;
 	};
-};
 
-class CfgMusic
-{
-	tracks[] = {};
-	class Intromusic
-	{
-		name = "";
-		sound[] = { "\fx\intro.ogg", db+20, 0.0 };
-
+	class EnableWMIActions{
+		title = "WMI Actions";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 1;
 	};
-};
 
-class CfgUnitInsignia
-{
-	class 111thID
-	{
-		displayName = "Medic Motivational Patch";						// Name displayed in Arsenal
-		author = "Prof";									// Author displayed in Arsenal
-		texture = "LYSFWC.paa";									// Image path
-		textureVehicle = "";									// Does nothing, reserved for future use
+	class EnableAIResupply{
+		title = "AI Resupply Call";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 0;
+	};
+
+	class AIResupplyCooldown{
+		title = "AI Resupply Cooldown";
+		texts[] = {"90 Seconds", "5 Minutes", "10 Minutes", "20 Minutes", "30 Minutes"};
+		values[] = {90, 300, 600, 1200, 1800};
+		default = 300;
+	};
+
+	class DeleteResupplyCrate{
+		title = "Delete Resupply Crate On Start";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 0;
+	};
+
+	class EnableFOBs{
+		title = "FOBs";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 1;
+	};
+
+	class AllowRespawnAtFobs{
+		title = "Respawn At FOBs";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 1;
+	};
+
+	class HighlanderFobs{
+		title = "Highlander FOBs";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 1;
+	};
+
+	class FobCooldown{
+		title = "FOB Cooldown";
+		texts[] = {"1 second", "90 Seconds", "5 Minutes", "10 Minutes", "20 Minutes", "30 Minutes"};
+		values[] = {1, 90, 300, 600, 1200, 1800};
+		default = 1;
+	};	
+
+	class FobLimit{
+		title = "FOB Limit";
+		texts[] = {"1 FOB","5 FOBs", "10 FOBs", "20 FOBs", "30 FOBs", "1000 FOBs"};
+		values[] = {1, 5, 10, 20, 30, 100};
+		default = 20;
+	};	
+
+	class EnableSquadMarkers{
+		title = "Squad Markers";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 1;
+	};	
+
+	class SMupdateFreq{
+		title = "Squad Marker Frequency";
+		texts[] = {"1 Second", "5 Seconds", "30 Seconds", "1 Minute", "5 Minutes"};
+		values[] = {1, 5, 30, 60, 300};
+		default = 60;
+	}
+
+	class CrateGenVar{
+		title = "Spawnable Crates";
+		texts[] = {"True", "False"};
+		values[] = {1, 0};
+		default = 0;
+	};	
+
+	class CrateGenLimit{
+		title = "Spawnable Crate Limit";
+		texts[] = {"1 Crate","5 Crate", "10 Crate", "20 Crate", "30 Crate", "1000 Crate"};
+		values[] = {1, 5, 10, 20, 30, 100};
+		default = 5;
 	};
 };
