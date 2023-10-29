@@ -20,11 +20,12 @@ _requestType Enum:
 	So we're basically using them as a stateBag for passing variables throughout the different dataflows arma's got going on in it's engine.
 	--------------------
 ================================================================================================*/
+//Set up a 'global' keyDownID to track the ID of the UI bind event handler
+//We set it to -1 to make it obvious it isn't a valid ID when it's not set
+localnamespace setVariable ["_keyDownID", -1];
 
 while {true} do {
 	//hint "running transportMoveRequest";
-
-	waitUntil {(objectParent player) == transportVehicle}; //Wait until the player is in the transportVehicle
 
 	if((objectParent player) == transportVehicle) then {
 		//hint "player in vehicle";
@@ -136,6 +137,8 @@ while {true} do {
 						params ["_display", "_exitCode"];
 
 						//Clean up everything we could have set above
+						_keyDownEventId = localnamespace getVariable "_keyDownID";
+
 						removeAllMissionEventHandlers "MapSingleClick";
 						deleteMarkerLocal "taxiMark";
 						deleteMarkerLocal "circleMark";
@@ -221,6 +224,8 @@ while {true} do {
 					_ctrl ctrlAddEventHandler ["ButtonClick", {
 						params ["_ctrl"];
 						//Clean up everything we could have set above
+						_keyDownEventId = localnamespace getVariable "_keyDownID";
+
 						removeAllMissionEventHandlers "MapSingleClick";
 						deleteMarkerLocal "taxiMark";
 						deleteMarkerLocal "circleMark";
@@ -233,14 +238,28 @@ while {true} do {
 			}
 		];
 
+		localnamespace setVariable ["_keyDownID", callChopper];
 		_pMapClicked = localnamespace getVariable "_mapClicked";
-		waituntil {sleep 1; _pMapClicked == true}; //Wait until the above commands have all been run - this avoids order desync
+		waituntil {sleep 1; _pMapClicked == true || (objectParent player) != transportVehicle }; //Wait until the above commands have all been run - this avoids order desync
 		sleep 1;
 		//Clear markers now we exit the UI
 		deleteMarkerLocal "taxiMark"; 
 		deleteMarkerLocal "circleMark";
 		deleteMarkerLocal "circleArea";
 		localNamespace setVariable ["_mapClicked", false]; //reset the variable for if you want to issue a new location mid-flight
+
+	} else {
+		//hint "player out vehicle";
+		_keyDownEventId = localnamespace getVariable "_keyDownID";
+
+		//Check if a valid EventID has been bound
+		if(_keyDownEventId isNotEqualTo -1) then {
+			//Remove the ability to use the UI when no longer in the chopper
+			findDisplay 46 displayRemoveEventHandler ["keyDown",_keyDownEventId];
+			localnamespace setVariable ["_keyDownID", -1];
+		};
+
+		waituntil {sleep 1; (objectParent player) == transportVehicle}; //Wait until the above commands have all been run - this avoids order desync
 
 	};
 

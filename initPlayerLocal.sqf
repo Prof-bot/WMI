@@ -16,6 +16,13 @@ _chopperPickup = true;
 // WMI Actions Init
 //-------------------------------------------------------------
 
+
+//-------------------------------------------------------------
+// WMI Taxi Init
+//-------------------------------------------------------------
+	_heliTaxi = ["HeliTaxi","HeliTaxi","",{nil},{true}] call ace_interact_menu_fnc_createAction;  
+	[Player, 1, ["ACE_SelfActions"], _heliTaxi] call ace_interact_menu_fnc_addActionToObject;
+
 if (_chopperPickup) then
 {
 	_pickupCall = {
@@ -24,7 +31,7 @@ if (_chopperPickup) then
 	};
 
 	_pickup = ["Pickup","Request Pickup","",_pickupCall,{true}] call ace_interact_menu_fnc_createAction;
-	[player, 1, ["ACE_SelfActions","WMI"], _pickup] call ace_interact_menu_fnc_addActionToObject;
+	[player, 1, ["ACE_SelfActions","HeliTaxi"], _pickup] call ace_interact_menu_fnc_addActionToObject;
 };
 
 
